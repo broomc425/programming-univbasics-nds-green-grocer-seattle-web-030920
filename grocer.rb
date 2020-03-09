@@ -84,5 +84,14 @@ def checkout(cart, coupons)
   apply_clearance(ccart)
   
   while i < ccart.length do 
-    total += items_total_cost
+    total += items_total_cost(ccart[i])
+  end
+  
+  total >= 100 ? total * (1.0 - big_purchase_discount_rate) : total
+end
+
+def items_total_cost(i)
+  i[:count] * i[:price]
+end
+
 end
