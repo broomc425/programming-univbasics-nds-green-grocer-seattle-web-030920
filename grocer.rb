@@ -59,7 +59,11 @@ def apply_clearance(cart)
     item = cart[i]
     if item[:clearance]
       discounted_price = ((1 - clearance_item_discount_rate) * item[:price]).round(2)
-      
+      item[:price] = discounted_price
+    end
+    i += 1 
+  end
+  cart
 end
 
 def checkout(cart, coupons)
@@ -72,4 +76,13 @@ def checkout(cart, coupons)
   #
   # BEFORE it begins the work of calculating the total (or else you might have
   # some irritated customers
+  total = 0 
+  i = 0 
+  
+  ccart = consolidate_cart(cart)
+  apply_coupons(ccart, coupons)
+  apply_clearance(ccart)
+  
+  while i < ccart.length do 
+    
 end
